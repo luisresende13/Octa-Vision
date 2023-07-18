@@ -3,5 +3,11 @@ flask-cors
 boto3
 google-cloud-bigquery
 ultralytics
-lap
+# lap
 # pafy youtube_dl
+Flask
+itsdangerous
+Jinja2
+MarkupSafe
+Werkzeug
+gunicorn

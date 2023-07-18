@@ -670,23 +670,29 @@ def get_objects_from_bigquery(query):
 
     except Exception as e:
         raise HTTPError(500, 'Failed to get objects', str(e))
-        
-class PetIn(Schema):
-    name = String(
-        required=True,
-        validate=Length(0, 10),
-        metadata={'title': 'Pet Name', 'description': 'The name of the pet.'}
-    )
-    category = String(
-        required=True,
-        validate=OneOf(['dog', 'cat']),
-        metadata={'title': 'Pet Category', 'description': 'The category of the pet.'}
-    )
+
+
+if __name__ == "__main__":
+    print('wsgi.py __main__ EXECUTING...')
+    app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
+
+
+# class PetIn(Schema):
+#     name = String(
+#         required=True,
+#         validate=Length(0, 10),
+#         metadata={'title': 'Pet Name', 'description': 'The name of the pet.'}
+#     )
+#     category = String(
+#         required=True,
+#         validate=OneOf(['dog', 'cat']),
+#         metadata={'title': 'Pet Category', 'description': 'The category of the pet.'}
+#     )
     
-class PetOut(Schema):
-    id = Integer(metadata={'title': 'Pet ID', 'description': 'The ID of the pet.'})
-    name = String(metadata={'title': 'Pet Name', 'description': 'The name of the pet.'})
-    category = String(metadata={'title': 'Pet Category', 'description': 'The category of the pet.'})
+# class PetOut(Schema):
+#     id = Integer(metadata={'title': 'Pet ID', 'description': 'The ID of the pet.'})
+#     name = String(metadata={'title': 'Pet Name', 'description': 'The name of the pet.'})
+#     category = String(metadata={'title': 'Pet Category', 'description': 'The category of the pet.'})
 
 
 
