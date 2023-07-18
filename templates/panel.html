@@ -720,6 +720,7 @@
       let post_scheme = selectedCam.post_scheme;
       let device = "gpu";
       let seconds = device.includes("cpu") ? 3 : 70;
+      let task = "track";
         
        // Formatted json string
       if (post_scheme != "")
@@ -735,13 +736,13 @@
         handleUrlChange();
 
       // Construct the track view URL
-      const trackViewURL = `${baseStreamURL}/track?stream=true&task=predict&device=${device}&source=${encodeURIComponent(url)}&objects=${encodeURIComponent(objects)}&seconds=${encodeURIComponent(seconds)}&conf=${encodeURIComponent(conf)}&dt=${encodeURIComponent(new Date().getTime())}`;
+      const trackViewURL = `${baseStreamURL}/track?stream=true&task=${task}&device=${device}&source=${encodeURIComponent(url)}&objects=${encodeURIComponent(objects)}&seconds=${encodeURIComponent(seconds)}&conf=${encodeURIComponent(conf)}&dt=${encodeURIComponent(new Date().getTime())}`;
 
       // Construct the track post URL
-      const trackPostURL = `${baseStreamURL}/track?process=bigquery&stream=false&task=predict&device=${device}&source=${encodeURIComponent(url)}&objects=${encodeURIComponent(objects)}&seconds=${encodeURIComponent(seconds)}&conf=${encodeURIComponent(conf)}&dt=${encodeURIComponent(new Date().getTime())}`;
+      const trackPostURL = `${baseStreamURL}/track?process=bigquery&stream=false&task=${task}&device=${device}&source=${encodeURIComponent(url)}&objects=${encodeURIComponent(objects)}&seconds=${encodeURIComponent(seconds)}&conf=${encodeURIComponent(conf)}&dt=${encodeURIComponent(new Date().getTime())}`;
 
       // Construct the track trigger URL
-      const trackTriggerURL = `${baseStreamURL}/track?process=bigquery-trigger&stream=false&task=predict&device=${device}&dt=${encodeURIComponent(new Date().getTime())}`;
+      const trackTriggerURL = `${baseStreamURL}/track?process=bigquery-trigger&stream=false&task=${task}&device=${device}&dt=${encodeURIComponent(new Date().getTime())}`;
                 
       // Get the parent container element
       const container = document.getElementById('video-player-container');

@@ -371,25 +371,25 @@ def post_yolo_predict(data):
     if device == "gpu":
         device = 0
     
-    objects = None if len(query["objects"]) == 0 else query["objects"]
-    classes = None if len(query["classes"]) == 0 else query["classes"]
+    objects = None if len(data["objects"]) == 0 else data["objects"]
+    classes = None if len(data["classes"]) == 0 else data["classes"]
             
     # Detection/tracking model parameters
     model_params = {
         "objects": objects,
         "classes": classes,
-        "imgsz": query["imgsz"],
-        "conf": query["conf"],
-        "iou": query["iou"],
-        "max_det": query["max_det"],
-        "vid_stride": query["vid_stride"],
+        "imgsz": data["imgsz"],
+        "conf": data["conf"],
+        "iou": data["iou"],
+        "max_det": data["max_det"],
+        "vid_stride": data["vid_stride"],
         "device": device,
-        "tracker": query["tracker"],
-        "persist": query["persist"],
-        "augment": query["augment"],
-        "save": query["save"],
-        "show": query["show"],
-        "verbose": query["verbose"],
+        "tracker": data["tracker"],
+        "persist": data["persist"],
+        "augment": data["augment"],
+        "save": data["save"],
+        "show": data["show"],
+        "verbose": data["verbose"],
     }    
     post_processing_args_dict = {
         'bigdata': {
