@@ -713,14 +713,14 @@
       // Get the request query values
       let url = selectedItem.id
       currentURL = url
-      let conf = 0.3;
-      // let objects = yoloObjects;
-      let objects = selectedCamObjects.replace(/,\s+/g, ', '); // Replace multiple spaces after comma with a single space
       let post_url = selectedCam.post_url;
       let post_scheme = selectedCam.post_scheme;
-      let device = "gpu";
-      let seconds = device.includes("cpu") ? 3 : 70;
       let task = "track";
+      let device = "gpu";
+      let conf = 0.30;
+      // let objects = yoloObjects;
+      let objects = selectedCamObjects.replace(/,\s+/g, ', '); // Replace multiple spaces after comma with a single space
+      let seconds = device.includes("cpu") ? 3 : 70;
         
        // Formatted json string
       if (post_scheme != "")
@@ -742,7 +742,7 @@
       const trackPostURL = `${baseStreamURL}/track?process=bigquery&stream=false&task=${encodeURIComponent(task)}&device=${encodeURIComponent(device)}&source=${encodeURIComponent(url)}&objects=${encodeURIComponent(objects)}&seconds=${encodeURIComponent(seconds)}&conf=${encodeURIComponent(conf)}&dt=${encodeURIComponent(new Date().getTime())}`;
 
       // Construct the track trigger URL
-      const trackTriggerURL = `${baseStreamURL}/track?process=${encodeURIComponent("bigquery-trigger")}&stream=false&task=${encodeURIComponent(task)}&device=${encodeURIComponent(device)}&dt=${encodeURIComponent(new Date().getTime())}`;
+      const trackTriggerURL = `${baseStreamURL}/track?dt=${encodeURIComponent(new Date().getTime())}`;
                 
       // Get the parent container element
       const container = document.getElementById('video-player-container');
@@ -760,12 +760,13 @@
         
       async function fetchData(Url, params={method: "GET", headers:{'Content-Type': 'application/json' }}, title="") {
         try {            
-            console.log(`Fetch Start · URL: ${Url} · PARAMS: ${JSON.stringify(params)}`)
+           console.log(`Fetch Start · URL: ${Url} · PARAMS: ${JSON.stringify(params)}`)
            const response = await fetch(Url, params);
            const data = await response.json();
            // Handle the received data
            console.log(`${name} fetch successful! Response:`, data);
          } catch (error) {
+           console.log(`${name} fetch FAILED! ERROR:`, error);
          }
        }
         
@@ -780,11 +781,15 @@
           // Request object identification posting and triggering asyncronously
           const trackTriggerBody = {
               source: url,
+              stream: false,
+              process: "bigquery-trigger",
               post_url,
               post_scheme,
               objects,
               seconds,
               conf,
+              task,
+              device,
           }
 
           fetchData(trackTriggerURL, {

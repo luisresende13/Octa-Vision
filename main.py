@@ -390,17 +390,24 @@ def post_yolo_predict(data):
         "save": data["save"],
         "show": data["show"],
         "verbose": data["verbose"],
-    }    
+    }
+    
     post_processing_args_dict = {
-        'bigdata': {
+        'none': None,
+        'console-log': {},
+        'bigquery': {
             'url': data['source']
         },
-        'bigdata-url': {
+        'trigger': {
             'url': data['source'],
             'post_url': data['post_url'],
             'post_scheme': data['post_scheme']
         },
-        'none': None,
+        'bigquery-trigger': {
+            'url': data['source'],
+            'post_url': data['post_url'],
+            'post_scheme': data['post_scheme']
+        },
     }
 
     post_processing_function = post_processing_functions_dict[data['process']]
