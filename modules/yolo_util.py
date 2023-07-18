@@ -270,7 +270,7 @@ def new_objects_from(tracking, unique_track_ids):
             new_objects.append(track)
 
             # add the tracked object ID to the set of unique track IDs
-            unique_track_ids.add(track["track_id"])
+            unique_track_ids.append(track["track_id"])
     
     return new_objects, unique_track_ids
 
