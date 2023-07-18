@@ -1,13 +1,28 @@
+# ---
+# Base python packages
+
 apiflask
 flask-cors
 boto3
 google-cloud-bigquery
 ultralytics
+
+# ---
+# Additional ultralytics packages (Not installed by default)
+
 lap
 # pafy youtube_dl
-Flask
-itsdangerous
-Jinja2
-MarkupSafe
-Werkzeug
+
+# ----
+# This modules should already be installed by default by installing the packages above
+
+# Flask
+# itsdangerous
+# Jinja2
+# MarkupSafe
+# Werkzeug
+
+# ---
+# Gunicorn module
+
 gunicorn

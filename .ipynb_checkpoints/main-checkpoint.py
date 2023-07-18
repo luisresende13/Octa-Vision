@@ -673,8 +673,9 @@ def get_objects_from_bigquery(query):
 
 
 if __name__ == "__main__":
-    print('wsgi.py __main__ EXECUTING...')
-    app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
+    print('main.py __main__ EXECUTING...')
+    app.run()
+    # app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
 
 
 # class PetIn(Schema):
