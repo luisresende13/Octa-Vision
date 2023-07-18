@@ -29,7 +29,7 @@ objects_table = bqclient.get_table(objects_table_ref)
 
 def default_post_processing(result, timestamp, post_processing_outputs, **kwargs):
     # Get unique tracking ids
-    unique_track_ids = set()
+    unique_track_ids = []
     if len(post_processing_outputs):
         previous_output = post_processing_outputs[-1]
         unique_track_ids = previous_output["unique_track_ids"].copy()
@@ -39,14 +39,14 @@ def default_post_processing(result, timestamp, post_processing_outputs, **kwargs
     tracking = identified_objects(result, timestamp)
     new_objects, unique_track_ids = new_objects_from(tracking, unique_track_ids)
 
-    return {"timestamp": timestamp, "n_detected": len(detections), "n_tracked": len(unique_track_ids), "unique_track_ids": list(unique_track_ids), 'n_new': len(new_objects), 'new_objects': new_objects, 'kwargs': kwargs}
+    return {"timestamp": timestamp, "n_detected": len(detections), "n_tracked": len(unique_track_ids), "unique_track_ids": unique_track_ids, 'n_new': len(new_objects), 'new_objects': new_objects, 'kwargs': kwargs}
 
 
 # INSERT RECORDS OF NEW OBJECTS INTO BIGQUERY DATABASE
 
 def bigquery_post_new_objects(result, timestamp, post_processing_outputs, **kwargs):
     # Get unique tracking ids
-    unique_track_ids = set()
+    unique_track_ids = []
     if len(post_processing_outputs):
         previous_output = post_processing_outputs[-1]
         unique_track_ids = previous_output["unique_track_ids"].copy()
@@ -89,7 +89,7 @@ def bigquery_post_new_objects(result, timestamp, post_processing_outputs, **kwar
             print('Error inserting records into BigQuery:', str(errors))
             # logging.error('Error inserting records into BigQuery:', errors)
 
-    return {"timestamp": timestamp, "unique_track_ids": list(unique_track_ids), 'url': kwargs["url"], 'new_objects': len(new_objects), "bigquery_errors": errors}
+    return {"timestamp": timestamp, "unique_track_ids": unique_track_ids, 'url': kwargs["url"], 'new_objects': len(new_objects), "bigquery_errors": errors}
 
 post_keys_to_english = {
     'objeto': 'class_name',
@@ -106,7 +106,7 @@ def trigger_post_url_new_objects(result, timestamp, post_processing_outputs, **k
     post_scheme = kwargs["post_scheme"]
     
     # Get unique tracking ids
-    unique_track_ids = set()
+    unique_track_ids = []
     if len(post_processing_outputs):
         previous_output = post_processing_outputs[-1]
         unique_track_ids = previous_output["unique_track_ids"].copy()
@@ -147,7 +147,7 @@ def trigger_post_url_new_objects(result, timestamp, post_processing_outputs, **k
             res = requests.post(kwargs["post_url"], json=trigger_post_body)
             responses.append({'status_code': res.status_code, 'message': res.reason})
 
-    return {"timestamp": timestamp, "unique_track_ids": list(unique_track_ids), 'url': url, 'post_url': post_url, 'new_objects': len(new_objects), 'post_url_responses': responses}
+    return {"timestamp": timestamp, "unique_track_ids": unique_track_ids, 'url': url, 'post_url': post_url, 'new_objects': len(new_objects), 'post_url_responses': responses}
 
 def bigquery_post_and_trigger_new_objects(result, timestamp, post_processing_outputs, **kwargs):
     post_status = bigquery_post_new_objects(result, timestamp, post_processing_outputs, **kwargs)
