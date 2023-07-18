@@ -1,0 +1,7 @@
+apiflask
+flask-cors
+boto3
+google-cloud-bigquery
+ultralytics
+lap
+# pafy youtube_dl

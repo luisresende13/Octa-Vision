@@ -1,0 +1,9 @@
+mkdir octa-vision
+cd octa-vision
+python -m venv venv
+venv\Scripts\activate
+echo venv/ > .gitignore
+echo apiflask > requirements.txt
+pip install -r requirements.txt
+# upload app.py
+# flask run
