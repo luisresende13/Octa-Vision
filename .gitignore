@@ -1,2 +1,9 @@
 venv/ 
 models/yolov8x.pt
+*.pyc
+*.pyo
+*.pyd
+__pycache__
+.pytest_cache
+__pychache__/
+.ipynb_checkpoints/

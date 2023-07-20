@@ -1,6 +1,7 @@
 venv/
 __pychache__/
 .ipynb_checkpoints/
+Dockerfile
 *.pyc
 *.pyo
 *.pyd

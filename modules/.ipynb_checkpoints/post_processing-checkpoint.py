@@ -1,6 +1,6 @@
 # Python standard modules
 
-import requests, json
+import requests, json, cv2
 
 # Custom modules
 
